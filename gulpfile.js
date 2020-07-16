@@ -42,4 +42,3 @@ function watch() {
 }
 
 exports.watch = watch;
-exports.style = compileSass;
