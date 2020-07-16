@@ -15,5 +15,9 @@
     "gulp": "^4.0.2",
     "gulp-atomizer": "^3.0.7",
     "gulp-sass": "^4.1.0"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.4.4",
+    "jquery": "^3.5.1"
   }
 }
