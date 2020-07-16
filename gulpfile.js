@@ -22,7 +22,7 @@ function compileAtomicCSS() {
         .pipe(gulp.dest("./src/css"));
 }
 
-function watch() {
+function live_server() {
     browserSync.init({
         server: {
             index: "./src/templates/index.html"
@@ -41,4 +41,4 @@ function watch() {
     });
 }
 
-exports.watch = watch;
+exports.live_server = live_server;
