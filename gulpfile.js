@@ -1,26 +1,45 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass');
 const browserSync = require('browser-sync').create();
+const acss = require('gulp-atomizer');
 
 //compile scss into css
-function style() {
+function compileSass() {
+    console.log("compiling sass");
     return gulp.src('src/scss/**/*.scss')
-        .pipe(sass().on('error',sass.logError))
-        .pipe(gulp.dest('src/css'))
-        .pipe(browserSync.stream());
+        .pipe(sass())
+        .pipe(gulp.dest('src/css'));
+}
+
+//compile atomic css
+function compileAtomicCSS() {
+    console.log("compiling atomic css");
+    return gulp.src("./src/templates/*.html")
+        .pipe(acss({
+            outfile: 'atomic.css',
+            cssOptions: {namespace: '#atomic'},
+        }))
+        .pipe(gulp.dest("./src/css"));
 }
 
 function watch() {
     browserSync.init({
         server: {
-            index: "./src/templates/index.html",
+            index: "./src/templates/index.html"
         },
     });
-    gulp.watch('./src/scss/**/*.scss', style)
-    gulp.watch('./src/css/**/*.css').on('change', browserSync.reload);
-    gulp.watch('./src/templates/**/*.html').on('change',browserSync.reload);
-    gulp.watch('./src/js/**/*.js').on('change', browserSync.reload);
+    gulp.watch('./src/scss/**/*.scss').on('change', () => {
+        compileSass();
+        browserSync.reload();
+    });
+    gulp.watch('./src/templates/**/*.html').on('change', () => {
+        compileAtomicCSS();
+        browserSync.reload();
+    });
+    gulp.watch('./src/js/**/*.js').on('change', () => {
+        browserSync.reload();
+    });
 }
 
 exports.watch = watch;
-exports.style = style;
+exports.style = compileSass;

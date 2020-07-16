@@ -1,7 +1,10 @@
-.Bgc\(red\) {
+#atomic .Bgc\(red\) {
   background-color: red;
 }
-.Py\(10px\) {
-  padding-top: 10px;
-  padding-bottom: 10px;
+#atomic .My\(0px\) {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+#atomic .P\(10px\) {
+  padding: 10px;
 }
