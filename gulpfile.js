@@ -18,6 +18,14 @@ function compileAtomicCSS() {
         .pipe(acss({
             outfile: 'atomic.css',
             cssOptions: {namespace: '#atomic'},
+            acssConfig: {
+                'breakPoints': {
+                    'sm': '@media screen and (min-width: 576px)',
+                    'md': '@media screen and (min-width: 768px)',
+                    'lg': '@media screen and (min-width: 992px)',
+                    'xl': '@media screen and (min-width: 1200px)'
+                }
+            }
         }))
         .pipe(gulp.dest("./src/css"));
 }
@@ -27,6 +35,7 @@ function live_server() {
         server: {
             index: "./src/templates/index.html"
         },
+        notify: false
     });
     gulp.watch('./src/scss/**/*.scss').on('change', () => {
         compileSass();
